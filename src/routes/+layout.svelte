@@ -5,7 +5,7 @@
 
 </script>
 
-<div class="h-screen flex flex-col">
+<div class="h-screen flex flex-col text-neutral-100 font-sans">
     <div class="h-1/3 flex">
         <EditingArea />
     </div>

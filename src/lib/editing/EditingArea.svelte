@@ -1,3 +1,3 @@
-<div class="bg-green-300 flex grow">
+<div class="bg-green-300 grow">
 edit
 </div>
