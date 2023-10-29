@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {FileItem} from "$lib/preview_area/project_browser/BrowserItems";
+    import type {FileItem} from "$lib/preview_area/project_browser/FileTree";
     import {get_file_icon} from "$lib/preview_area/project_browser/FileIcons";
 
     export let file: FileItem;

@@ -1,4 +1,12 @@
-import type {DirectoryItem} from "$lib/preview_area/project_browser/BrowserItems";
+export interface DirectoryItem {
+    name: string,
+    sub_dirs: DirectoryItem[]
+    files: FileItem[]
+}
+
+export interface FileItem {
+    name: string,
+}
 
 const lib: DirectoryItem = {
     name: "lib",
