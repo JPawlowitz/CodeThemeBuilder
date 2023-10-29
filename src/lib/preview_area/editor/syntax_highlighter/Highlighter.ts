@@ -1,17 +1,19 @@
-import {javascript_features} from "$lib/preview_area/editor/syntax_highlighter/langs/javascript";
+import {javascript_features, js_example} from "$lib/preview_area/editor/syntax_highlighter/langs/javascript";
+import type {Theme} from "$lib/editing/ThemeStore";
 
 export interface LanguageFeatures {
     keywords: string
 }
 
-export function highlight(text_area: HTMLElement): [string, string[]] {
-    const js_features = javascript_features;
+export function highlight(theme: Theme): number {
+    const text_area = document.getElementById("text-input");
+    if (!text_area) throw Error("Text area is null!");
+    text_area.innerHTML = js_example;
 
     let with_breaks = "";
     const lines = text_area.innerHTML.split('\n');
     let indent = false;
     lines.forEach((value, i) => {
-        //with_breaks += value + "<br><span>" + (i + 1) + "</span>"
         if (new RegExp("\{$").test(value)) {
             indent = true;
         } else if (new RegExp("\}$").test(value)) {
@@ -27,7 +29,6 @@ export function highlight(text_area: HTMLElement): [string, string[]] {
     })
 
     text_area.innerHTML = with_breaks;
-    console.log(with_breaks)
 
     //Find numbers. First because it would parse tailwind class numbers
     let result = text_area.innerHTML.replace(new RegExp("([0-9])", "g"),
@@ -51,7 +52,9 @@ export function highlight(text_area: HTMLElement): [string, string[]] {
 
     //Find keywords
     result = result.replace(new RegExp(javascript_features.keywords, "g"),
-        "<span class='text-red-500'>$1</span>");
+        "<span style='color:" + theme.keywords + "'>$1</span>");
 
-    return [result, lines];
+    text_area.innerHTML = result;
+
+    return lines.length;
 }

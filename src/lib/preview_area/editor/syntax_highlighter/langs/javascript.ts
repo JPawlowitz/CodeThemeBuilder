@@ -9,11 +9,13 @@ export const js_example = `
 const test = async () => {
 const response = await axios.get(API_URL + "/auth/get_user", { withCredentials: true });
 const user = response.data as @@c[UserData];
-const result = validate();
+const success = validate(user);
 
+if (success) {
 const nameSplit = user.name.split(" ");
 const initials = nameSplit.length > 1 ?
 nameSplit[0].charAt(0) + nameSplit[1].charAt(0) :
 nameSplit[0].charAt(0) + nameSplit[0].charAt(1);
+}
 }
 `

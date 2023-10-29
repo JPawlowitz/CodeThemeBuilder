@@ -2,17 +2,16 @@
     import TopBar from "$lib/preview_area/TopBar.svelte";
     import {onMount} from "svelte";
     import {highlight} from "$lib/preview_area/editor/syntax_highlighter/Highlighter";
-    import {js_example} from "$lib/preview_area/editor/syntax_highlighter/langs/javascript";
+    import {theme} from "$lib/editing/ThemeStore";
 
     let lines: string[] = [];
 
     onMount(() => {
         const text_input = document.getElementById("text-input");
         if (text_input) {
-            const [result, num_lines] = highlight(text_input);
-            text_input.innerHTML = result;
+            const num_lines = highlight(theme);
 
-            for (let i = 0; i < num_lines.length; i++) {
+            for (let i = 0; i < num_lines; i++) {
                 lines = [...lines, (i + 1).toString()];
             }
         }
@@ -29,7 +28,6 @@
             {/each}
         </ul>
         <div id="text-input" contenteditable="true" class="font-mono">
-            { js_example }
         </div>
     </div>
 
