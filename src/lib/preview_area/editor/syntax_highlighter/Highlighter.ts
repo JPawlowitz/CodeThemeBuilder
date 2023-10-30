@@ -37,9 +37,14 @@ export function highlight(theme: Theme): number {
     result = result.replace(new RegExp(javascript_features.keywords, "g"),
         "<span style='color:" + theme.keywords + "'>$1</span>");
 
-    text_area.innerHTML = result;
+    text_area.innerHTML = apply_font(result, theme);
 
     return num_lines;
+}
+
+function apply_font(text: string, theme: Theme): string {
+    return "<div style='font-family:" + theme.font.name + ",monospace; font-size:" +
+        theme.font.size + "pt; color:" + theme.font.color + ";'>" + text + "</div>"
 }
 
 function format_code(code: string): [string, number] {

@@ -27,7 +27,7 @@
                 <li>{line}</li>
             {/each}
         </ul>
-        <div id="text-input" contenteditable="true" class="font-mono">
+        <div id="text-input" contenteditable="true">
         </div>
     </div>
 
