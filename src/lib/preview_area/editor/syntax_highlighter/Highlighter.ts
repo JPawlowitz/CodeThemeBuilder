@@ -8,28 +8,10 @@ export interface LanguageFeatures {
 export function highlight(theme: Theme): number {
     const text_area = document.getElementById("text-input");
     if (!text_area) throw Error("Text area is null!");
-
     text_area.innerHTML = js_example;
-    const lines = text_area.innerHTML.split('\n');
 
-    let with_breaks = "";
-    let indent_depth = 0;
-
-    lines.forEach(value => {
-        if (new RegExp("\{$|\\?$").test(value)) {
-            indent_depth += 1;
-        } else if (new RegExp("\}$").test(value)) {
-            indent_depth -= 1;
-        }
-
-        for (let i = 0; i <indent_depth; i++) {
-            with_breaks += "<span>&nbsp;&nbsp;&nbsp;</span>"
-        }
-
-        with_breaks += value + "<br>";
-    });
-
-    text_area.innerHTML = with_breaks;
+    let [formatted_code, num_lines] = format_code(text_area.innerHTML);
+    text_area.innerHTML = formatted_code;
 
     //Find numbers. First because it would parse tailwind class numbers
     let result = text_area.innerHTML.replace(new RegExp("([0-9])", "g"),
@@ -57,5 +39,41 @@ export function highlight(theme: Theme): number {
 
     text_area.innerHTML = result;
 
-    return lines.length;
+    return num_lines;
+}
+
+function format_code(code: string): [string, number] {
+    let formatted_code = "";
+    let indent_depth = 0;
+    let scope_indent = false;
+
+    const lines = code.split('\n');
+    lines.forEach(value => {
+        if (new RegExp("\}$").test(value)) {
+            indent_depth -= 1;
+            scope_indent = false;
+        }
+
+        for (let i = 0; i <indent_depth; i++) {
+            formatted_code += "<span>&nbsp;&nbsp;&nbsp;</span>"
+        }
+
+        if (new RegExp("\\?$").test(value)) {
+            indent_depth += 1;
+            scope_indent = true;
+        }
+
+        if (new RegExp("\{$").test(value)) {
+            indent_depth += 1;
+        }
+
+        if (new RegExp("\;$").test(value) && scope_indent) {
+            indent_depth -= 1;
+            scope_indent = false;
+        }
+
+        formatted_code += value + "<br>";
+    });
+
+    return [formatted_code, lines.length];
 }

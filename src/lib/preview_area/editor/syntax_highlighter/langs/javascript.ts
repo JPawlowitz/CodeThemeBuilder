@@ -17,5 +17,8 @@ const initials = nameSplit.length > 1 ?
 nameSplit[0].charAt(0) + nameSplit[1].charAt(0) :
 nameSplit[0].charAt(0) + nameSplit[0].charAt(1);
 }
+else {
+    throw new Error("Cannot validate user");
+}
 }
 `
