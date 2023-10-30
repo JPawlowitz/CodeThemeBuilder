@@ -8,25 +8,26 @@ export interface LanguageFeatures {
 export function highlight(theme: Theme): number {
     const text_area = document.getElementById("text-input");
     if (!text_area) throw Error("Text area is null!");
+
     text_area.innerHTML = js_example;
+    const lines = text_area.innerHTML.split('\n');
 
     let with_breaks = "";
-    const lines = text_area.innerHTML.split('\n');
-    let indent = false;
-    lines.forEach((value, i) => {
-        if (new RegExp("\{$").test(value)) {
-            indent = true;
+    let indent_depth = 0;
+
+    lines.forEach(value => {
+        if (new RegExp("\{$|\\?$").test(value)) {
+            indent_depth += 1;
         } else if (new RegExp("\}$").test(value)) {
-            indent = false;
+            indent_depth -= 1;
         }
 
-        if (indent && !(new RegExp("\{$").test(value))) {
+        for (let i = 0; i <indent_depth; i++) {
             with_breaks += "<span>&nbsp;&nbsp;&nbsp;</span>"
         }
 
         with_breaks += value + "<br>";
-
-    })
+    });
 
     text_area.innerHTML = with_breaks;
 
@@ -38,9 +39,9 @@ export function highlight(theme: Theme): number {
     result = result.replace(new RegExp("(\/\/.*?\<br\>)", "g"),
         "<span class='text-neutral-500'>$1</span>");
 
-    //Find functions
+    //Find methods
     result = result.replace(new RegExp("([A-z]+)\\(", "g"),
-        "<span class='text-green-500'>$1</span>(");
+        "<span style='color:" + theme.methods + "'>$1</span>(");
 
     //Find literals
     result = result.replace(new RegExp("(\".*?\")", "g"),
