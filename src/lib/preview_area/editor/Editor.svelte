@@ -12,7 +12,8 @@
     })
 </script>
 
-<div class="bg-neutral-800 h-full w-full flex flex-col border-l border-neutral-600">
+<div class="h-full w-full flex flex-col border-l border-neutral-600"
+     style="background-color: {$theme.backgrounds.editor}">
     <TopBar />
 
     <div class="flex overflow-y-scroll h-fit w-full">

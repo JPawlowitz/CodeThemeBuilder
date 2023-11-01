@@ -1,35 +1,33 @@
 <script lang="ts">
     import {highlight} from "$lib/preview_area/editor/syntax_highlighter/Highlighter";
     import {theme} from "$lib/editing/ThemeStore";
-    import Attribute from "$lib/editing/CodeAttribute.svelte";
-    import Selection from "$lib/editing/Selection.svelte";
-    import ColorModifier from "$lib/editing/ColorModifier.svelte";
+    import FontSelector from "$lib/editing/FontSelector.svelte";
+    import CodeAttribute from "$lib/editing/CodeAttribute.svelte";
+    import ColorAttribute from "$lib/editing/ColorAttribute.svelte";
 
     function updateTheme() {
         highlight($theme);
     }
 </script>
 
-<div class="bg-neutral-900 grow flex flex-col p-4">
-    <div class="flex items-center">
-        <span class="w-24">Font</span>
-        <div class="flex space-x-1 items-center">
-
-            <Selection bind:value={ $theme.font.name } onChange={updateTheme}>
-                <option selected>Consolas</option>
-                <option>Monaco</option>
-            </Selection>
-            <Selection bind:value={ $theme.font.size } onChange={updateTheme}>
-                <option>14</option>
-                <option>13</option>
-                <option>12.5</option>
-                <option selected>12</option>
-                <option>11.5</option>
-                <option>11</option>
-            </Selection>
-            <ColorModifier bind:value={$theme.font.color} onChange={updateTheme} />
+<div class="bg-neutral-700 grow flex p-4">
+    <div class="flex flex-col space-y-2">
+        <div class="mb-2 border-b">
+            General
         </div>
+        <FontSelector onChange={updateTheme} />
+        <div class="my-2 border-b">
+            Backgrounds
+        </div>
+        <ColorAttribute name="Panel" bind:value={$theme.backgrounds.panel} onChange={updateTheme} />
+        <ColorAttribute name="Editor" bind:value={$theme.backgrounds.editor} onChange={updateTheme} />
     </div>
-    <Attribute name="Keywords" bind:value={$theme.keywords} onThemeChanged={updateTheme} />
-    <Attribute name="Methods" bind:value={$theme.methods} onThemeChanged={updateTheme} />
+    <div class="flex flex-col ml-4 space-y-2">
+        <div class="mb-2 border-b">
+            Code Highlighting
+        </div>
+        <CodeAttribute name="Keywords" bind:value={$theme.keywords} onThemeChanged={updateTheme} />
+        <CodeAttribute name="Methods" bind:value={$theme.methods} onThemeChanged={updateTheme} />
+        <CodeAttribute name="Strings" bind:value={$theme.strings} onThemeChanged={updateTheme} />
+    </div>
 </div>

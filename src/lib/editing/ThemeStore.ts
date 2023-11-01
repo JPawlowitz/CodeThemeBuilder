@@ -2,8 +2,13 @@ import {writable} from "svelte/store";
 
 export interface Theme {
     font: GeneralFontOptions,
+    backgrounds: {
+        panel: string,
+        editor: string,
+    }
     keywords: CodeHighlightAttributes,
     methods: CodeHighlightAttributes,
+    strings: CodeHighlightAttributes,
 }
 
 export interface GeneralFontOptions {
@@ -24,8 +29,13 @@ export const default_theme: Theme = {
         size: "12",
         color: "#dfdfdf"
     },
-    keywords: { color: "#FF0000", bold: false, italic: false },
-    methods: { color: "#00FF00", bold: false, italic: true },
+    backgrounds: {
+        panel: "#202020",
+        editor: "#202020",
+    },
+    keywords: { color: "#dd2200", bold: false, italic: false },
+    methods: { color: "#00dddd", bold: false, italic: true },
+    strings: { color: "#cc7f00", bold: false, italic: true },
 };
 
 export const theme = writable<Theme>(default_theme)

@@ -29,7 +29,7 @@ export function highlight(theme: Theme): number {
 
     //Find literals
     result = result.replace(new RegExp("(\".*?\")", "g"),
-        "<span class='text-yellow-600'>$1</span>");
+        replace_fragment("$1", theme.strings));
 
     //Find class names
     result = result.replace(new RegExp("@@c\\[(.*?)\]", "g"),

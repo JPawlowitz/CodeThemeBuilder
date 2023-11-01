@@ -10,7 +10,7 @@
 
 <div class="flex items-center">
     <span class="w-24">{ name }</span>
-    <div class="flex space-x-2">
+    <div class="flex space-x-1">
         <ColorModifier bind:value={ value.color } onChange={ onThemeChanged } />
         <CheckBox title="Bold" bind:value={ value.bold } onChange={ onThemeChanged }  />
         <CheckBox title="Italic" bind:value={ value.italic } onChange={ onThemeChanged }  />
