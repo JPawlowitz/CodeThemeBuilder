@@ -7,8 +7,9 @@
     const browser_tree: DirectoryItem = file_tree;
 </script>
 
-<div class="bg-neutral-800 flex flex-col grow border-neutral-600 max-w-[20%]">
-    <TopBar border={false} />
+<div class="bg-neutral-800 flex flex-col h-full border-neutral-600 w-96">
+    <TopBar />
+
     <div class="p-1">
         <BrowserDir dir_item={ browser_tree } />
     </div>

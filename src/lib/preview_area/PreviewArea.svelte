@@ -3,7 +3,7 @@
     import Editor from "$lib/preview_area/editor/Editor.svelte";
 </script>
 
-<div class="bg-neutral-800 grow flex text-neutral-300 font-light">
+<div class="bg-neutral-800 h-full w-full flex text-neutral-300 font-light">
     <ProjectBrowser />
     <Editor />
 </div>
